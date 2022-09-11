@@ -9,6 +9,7 @@ function Episodes() {
     useEffect(() => {
         getAllEpisodes(updateEpisodes)
         getAllPagesEpisodes(updateAllPages)
+        
     }, [])
     return (
         <div className="">
@@ -49,10 +50,14 @@ function Episodes() {
                     </tbody>
                 </table>
                 <div className="flex justify-between mx-5">
-                    <button className="p-3 m-5 bg-indigo-400 rounded-md" >back</button>
                     <button className="p-3 m-5 bg-indigo-400 rounded-md" onClick={()=>{
-                        getAllEpisodes(updateEpisodes,page,true)
-                    }}>next</button>
+                        getAllEpisodes(updateEpisodes,page,updatePage,false)                        
+                    }}>back {page-1}</button>
+                    <button className="p-3 m-5 bg-indigo-400 rounded-md" onClick={()=>{
+                        if(page<allPages){
+                            getAllEpisodes(updateEpisodes,page,updatePage,true)
+                        }
+                    }}>next {page}</button>
                 </div>
             </div>
         </div>
