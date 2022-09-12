@@ -2,8 +2,13 @@ import React from 'react'
 
 function NavBar() {
   return (
-    <header>
-        <h1 className="text-4xl tracking-tight text-center font-extrabold text-white p-4  bg-slate-800 ">RICK AND MORTY API</h1>
+    <header className="min-w-full w-screen bg-slate-800">
+        <div className="flex flex-row  ">
+            <a className="text-4xl tracking-tight text-left font-extrabold text-white p-4" href="/">RICK AND MORTY API</a>
+          <div className='flex justify-center items-center'>
+              <a className="text-white pr-5" href='/episodes'>Episodes</a>
+          </div>
+        </div>
     </header>
   )
 }
