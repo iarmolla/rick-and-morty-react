@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getCharacterById } from '../functions/functions'
 import { withRouter } from 'react-dom/client';
 import NavBar from './NavBar'
@@ -30,7 +30,7 @@ function Character() {
                             </div>
                         </div>
                         <div className='pb-6 mt-5'>
-                            <a className="bg-green-500 rounded-md mb-4 p-2 no-underline text-slate-900" href={`/`}>VOLVER</a>
+                            <Link className="bg-green-500 rounded-md mb-4 p-2 no-underline text-slate-900" to={`/`}>VOLVER</Link>
                         </div>
                     </>}
             </div>

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function NavBar() {
+function NavBar({navBar}) {
   return (
-    <header className="min-w-full w-screen bg-slate-800">
+    <header ref={navBar} className="min-w-full bg-slate-800">
         <div className="flex flex-row  ">
-            <a className="text-4xl tracking-tight text-left font-extrabold text-white p-4" href="/">RICK AND MORTY API</a>
+            <Link className="text-4xl tracking-tight text-left font-extrabold text-white p-4" to={"/"}>RICK AND MORTY API</Link>
           <div className='flex justify-center items-center'>
-              <a className="text-white pr-5" href='/episodes'>Episodes</a>
+              <Link className="text-white pr-5" to={'/episodes'}>Episodes</Link>
           </div>
         </div>
     </header>

@@ -6,15 +6,15 @@ function Episodes() {
     const [episodes, updateEpisodes] = useState()
     const [allPages, updateAllPages] = useState()
     const [page, updatePage] = useState(1)
+    const [keyEpisode, updateKey] = useState()
     useEffect(() => {
         getAllEpisodes(updateEpisodes)
-        getAllPagesEpisodes(updateAllPages)
-
+        getAllPagesEpisodes(updateAllPages, updateKey)
     }, [])
     return (
-        <div className="">
+        <div>
             <NavBar></NavBar>
-            <div className="">
+            <div>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -31,10 +31,10 @@ function Episodes() {
                     </thead>
                     <tbody>
                         {
-                            episodes == null ? '' : episodes.map((e) => {
-                                return <>
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            episodes == null ? <tr><th>There are not elements</th></tr> : episodes.map((e, index) => {
+                                return (
+                                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {e.air_date}
                                         </th>
                                         <td className="py-4 px-6">
@@ -44,12 +44,12 @@ function Episodes() {
                                             {e.episode}
                                         </td>
                                     </tr>
-                                </>
+                                )
                             })
                         }
                     </tbody>
                 </table>
-                <div className="flex justify-between  content-center place-items-center dark:bg-gray-800 text-white w-screen">
+                <div className="flex justify-between  content-center place-items-center dark:bg-gray-800 text-white ">
                     <div>
                         <h2 className="p-5">
                             Showing {page} to {allPages}
@@ -58,12 +58,12 @@ function Episodes() {
                     <div className="transition-all  ">
                         <button className="border-2 border-indigo-500/100 rounded-md p-2 m-5 border-double hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
                             getAllEpisodes(updateEpisodes, page, updatePage, false)
-                        }}>Previous {page - 1}</button>
+                        }}>Previous</button>
                         <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
                             if (page < allPages) {
                                 getAllEpisodes(updateEpisodes, page, updatePage, true)
                             }
-                        }}>Next {page}</button>
+                        }}>Next</button>
                     </div>
                 </div>
             </div>
