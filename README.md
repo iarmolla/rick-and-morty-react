@@ -1,6 +1,6 @@
 # Rick and Morty API 💻 
 
-##### [Rick Sanchez](https://w7.pngwing.com/pngs/255/851/png-transparent-rick-sanchez-morty-smith-sticker-playerunknown-s-battlegrounds-telegram-others-miscellaneous-white-face.png)
+##### [Rick Sanchez](./src/assets/rick.png)
 Rick and Morty API esta basado en la serie animada Rick and Morty. 
 En la pagina podras ver las imagenes, personajes, episodios, e interactuar para ver la descripción de cada personaje.
 
