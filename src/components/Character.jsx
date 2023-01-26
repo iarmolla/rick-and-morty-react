@@ -8,6 +8,8 @@ function Character() {
     const params = useParams()
     const [character, updateCharacter] = useState()
     useEffect(() => {
+        const element = document.getElementById('navbar')
+        element?.scrollIntoView()
         getCharacterById(params.id, updateCharacter)
     }, [])
     if (!character) {
@@ -28,7 +30,6 @@ function Character() {
         <>
             <NavBar></NavBar>
             <div className="bg-slate-900 grid place-items-center min-h-screen">
-
                 <div className=" my-5  text-white rounded-lg md:border 2 md:border-green-500/100  shadow-md  prose   lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
                     {character == null ? '' :
                         <>

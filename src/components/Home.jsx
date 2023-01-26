@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import getAllCharacter, { getAllPages } from '../functions/functions'
 import NavBar from './NavBar'
@@ -7,20 +7,14 @@ function Home() {
     const [page, updatePage] = useState(1)
     const [characters, updateCharacters] = useState(null)
     const [allPages, updateAllPages] = useState(1)
-    const navBar = useRef(null)
-    const scrollToSection = (elementRef) => {
-        window.scrollTo({
-            top: elementRef?.current?.offsetTop
-        })
-    }
     useEffect(() => {
         getAllPages(updateAllPages)
         setTimeout(() => { getAllCharacter(updateCharacters) }, 1000)
     }, [])
 
     return (
-        <div className='bg-gray-900'>
-            <NavBar navBar={navBar}></NavBar>
+        <div className='bg-gray-900' id="container">
+            <NavBar></NavBar>
             <div className={`${characters == null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all'}`}>
                 {characters == null ? '' : characters.map((e) => {
                     return (
@@ -47,13 +41,15 @@ function Home() {
                 </div>
                 <div className="transition-all text-white">
                     <button className="border-2 border-indigo-500/100 rounded-md p-2 m-5 border-double hover:bg-indigo-400 duration-300 w-32 md:w-60 " onClick={() => {
-                        getAllCharacter(updateCharacters, page, updatePage, false)
-                        scrollToSection(navBar)
+                        getAllCharacter(updateCharacters, page, updatePage, false)                        
+                        const element = document.getElementById('container')
+                        element?.scrollIntoView()
                     }}>Previous</button>
                     <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
                         if (page != allPages) {
-                            getAllCharacter(updateCharacters, page, updatePage, true)
-                            scrollToSection(navBar)
+                            getAllCharacter(updateCharacters, page, updatePage, true)                            
+                            const element = document.getElementById('container')
+                            element?.scrollIntoView()
                         }
                     }}>Next</button>
                 </div>
