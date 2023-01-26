@@ -15,7 +15,7 @@ function Home() {
     return (
         <div className='bg-gray-900' id="container">
             <NavBar></NavBar>
-            <div className={`${characters == null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all'}`}>
+            <div className={`${characters === null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all'}`}>
                 {characters == null ? '' : characters.map((e) => {
                     return (
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
@@ -46,7 +46,7 @@ function Home() {
                         element?.scrollIntoView()
                     }}>Previous</button>
                     <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
-                        if (page != allPages) {
+                        if (page !== allPages) {
                             getAllCharacter(updateCharacters, page, updatePage, true)                            
                             const element = document.getElementById('container')
                             element?.scrollIntoView()
