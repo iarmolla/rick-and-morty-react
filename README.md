@@ -3,7 +3,7 @@
 [![rick.png](https://i.postimg.cc/nrhY63SB/rick.png)](https://postimg.cc/G86yDxCm)
 
 Rick and Morty API esta basado en la serie animada Rick and Morty. 
-En la pagina podras ver las imagenes, personajes, episodios, e interactuar para ver la descripción de cada personaje.
+En la pagina podras ver las imágenes, personajes, episodios, e interactuar para ver la descripción de cada personaje.
 
 ## Características 📋
 
