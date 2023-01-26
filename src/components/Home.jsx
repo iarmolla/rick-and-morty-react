@@ -27,7 +27,7 @@ function Home() {
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
                                 <img src={e.image} className="duration-100 sm:px-24 md:p-0" alt={e.name} />
-                                <Link to={`/character/${e.id}`} className='border-2 text-white border-indigo-500/100  hover:bg-indigo-500/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
+                                <Link to={`/character/${e.id}`} className='border-2 text-white border-indigo-500/100 transition-all hover:transition-all  hover:bg-indigo-500/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
                             </div>
                         </div>
                     )
