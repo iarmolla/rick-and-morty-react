@@ -26,7 +26,7 @@ function Episodes() {
                         <span className="sr-only">Loading...</span>
                     </div>
                 </> : <>
-                    <table className="w-full h-screen text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table className="w-full h-screen text-sm text-left text-gray-500 dark:text-gray-400" id="table">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th className="py-3 px-6 ">
@@ -69,9 +69,13 @@ function Episodes() {
                         <div className="transition-all  ">
                             <button className="border-2 border-indigo-500/100 rounded-md p-2 m-5 border-double hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
                                 getAllEpisodes(updateEpisodes, page, updatePage, false)
+                                const element = document.getElementById('table')
+                                element?.scrollIntoView()
                             }}>Previous</button>
                             <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
                                 if (page < allPages) {
+                                    const element = document.getElementById('table')
+                                    element?.scrollIntoView()
                                     getAllEpisodes(updateEpisodes, page, updatePage, true)
                                 }
                             }}>Next</button>
