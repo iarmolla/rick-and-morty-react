@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import NavBar from './NavBar'
 import actions from '../actions/characters'
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ function Home({ getCharacters, characters, pages, updatePages }) {
     useEffect(() => {
         getCharacters(pages.pages)
     }, [page])
-    console.log(pages)
+    const navigate = useNavigate()
     if (!characters?.results) {
         return (
             <>
@@ -36,8 +36,10 @@ function Home({ getCharacters, characters, pages, updatePages }) {
                     return (
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
-                                <img src={e.image} className="duration-100 sm:px-24 md:p-0 transition-all hover:transition-all hover:animate-pulse cursor-pointer" alt={e.name} />
-                                <Link to={`page/${page}/character/${e.id}`} className=' text-white transition-all hover:transition-all  hover:bg-green-600/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
+                                <img src={e.image} className="duration-100 sm:px-24 md:p-0 transition-all hover:transition-all hover:animate-pulse cursor-pointer" onClick={()=> {
+                                    navigate(`page/${page}/character/${e.id}`)
+                                }} alt={e.name} />
+                                <Link to={`page/${page}/character/${e.id}`} className=' text-white transition-all hover:bg-green-600/100 rounded-md cursor-pointer m-3 p-2 hover:animate-pulse hover:transition-all '>More</Link>
                             </div>
                         </div>
                     )
