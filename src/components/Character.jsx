@@ -30,7 +30,7 @@ function Character() {
         <>
             <NavBar></NavBar>
             <div className="bg-slate-900 grid place-items-center min-h-screen">
-                <div className=" my-5  text-white rounded-lg md:border 2 md:border-green-500/100  shadow-md  prose   lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
+                <div className=" my-5  text-white rounded-lg  shadow-md  prose   lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
                     {character === null ? '' :
                         <>
                             <div>
@@ -47,7 +47,7 @@ function Character() {
                                     <span className="text-green-300">{character.species}</span>
                                 </div>
                             </div>
-                            <div className='pb-6 mt-5'>
+                            <div className='pb-6 mt-5'>                               
                                 <Link className="bg-green-500 rounded-md mb-4 p-2 no-underline text-slate-900" to={`/`}>BACK</Link>
                             </div>
                         </>}
