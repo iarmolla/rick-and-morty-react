@@ -30,7 +30,7 @@ function Character() {
         <>
             <NavBar></NavBar>
             <div className="bg-slate-900 grid place-items-center min-h-screen">
-                <div className=" my-5  text-white rounded-lg  shadow-xl  prose   lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
+                <div className=" my-5  text-white rounded-lg   prose  lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
                     {character === null ? '' :
                         <>
                             <div>
