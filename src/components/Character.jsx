@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import character from '../selectors/characterSelector'
 import characters from '../selectors/charactersSelector'
 
-
 function Character({ characters, single, getCharacter }) {
     const params = useParams()
     const [character, setCharacter] = useState()
@@ -18,6 +17,9 @@ function Character({ characters, single, getCharacter }) {
         }
         else {
             getCharacter(params.id)
+        }
+        if(!params.page) {
+
         }
     }, [])
     if (!characters?.results) {

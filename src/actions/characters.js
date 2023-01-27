@@ -26,5 +26,12 @@ function getCharacterSuccess(character) {
     }
 }
 
+function updatePage(page) {
+    return {
+        type: "UPDATE_PAGE",
+        page
+    }
+}
 
-export default {getCharacters,getCharactersSuccess,getCharacter,getCharacterSuccess}
+
+export default {getCharacters,getCharactersSuccess,getCharacter,getCharacterSuccess,updatePage}
