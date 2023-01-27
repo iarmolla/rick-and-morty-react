@@ -21,7 +21,7 @@ function Home() {
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
                                 <img src={e.image} className="duration-100 sm:px-24 md:p-0" alt={e.name} />
-                                <Link to={`/character/${e.id}`} className='border-2 text-white border-indigo-500/100 transition-all hover:transition-all  hover:bg-indigo-500/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
+                                <Link to={`/character/${e.id}`} className=' text-white transition-all hover:transition-all  hover:bg-green-600/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
                             </div>
                         </div>
                     )
@@ -40,12 +40,12 @@ function Home() {
                     </h2>
                 </div>
                 <div className="transition-all text-white">
-                    <button className="border-2 border-indigo-500/100 rounded-md p-2 m-5 border-double hover:bg-indigo-400 duration-300 w-32 md:w-60 " onClick={() => {
+                    <button className="border-2 border-green-500/100  rounded-md p-2 m-5 border-double hover:bg-green-600 duration-300 w-32 md:w-60 " onClick={() => {
                         getAllCharacter(updateCharacters, page, updatePage, false)                        
                         const element = document.getElementById('container')
                         element?.scrollIntoView()
                     }}>Previous</button>
-                    <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
+                    <button className="border-2 border-green-500/100  rounded-md p-2 m-5 hover:bg-green-600 duration-300 w-32 md:w-60" onClick={() => {
                         if (page !== allPages) {
                             getAllCharacter(updateCharacters, page, updatePage, true)                            
                             const element = document.getElementById('container')
