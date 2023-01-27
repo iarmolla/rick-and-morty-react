@@ -18,7 +18,7 @@ function Home({ getCharacters, characters }) {
                     return (
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
-                                <img src={e.image} className="duration-100 sm:px-24 md:p-0" alt={e.name} />
+                                <img src={e.image} className="duration-100 sm:px-24 md:p-0 transition-all hover:transition-all hover:animate-pulse cursor-pointer" alt={e.name} />
                                 <Link to={`/character/${e.id}`} className=' text-white transition-all hover:transition-all  hover:bg-green-600/100 rounded-md cursor-pointer m-3 p-2'>More</Link>
                             </div>
                         </div>

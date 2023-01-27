@@ -12,8 +12,7 @@ function Character({ characters, single, getCharacter }) {
     const [character, setCharacter] = useState()
     useEffect(() => {
         const element = document.getElementById('navbar')
-        element?.scrollIntoView()
-        console.log(single)
+        element?.scrollIntoView()        
         if (characters?.results) {
             setCharacter(characters?.results?.filter((character) => character.id == params.id))
         }
