@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { getAllEpisodes, getAllPagesEpisodes } from '../functions/functions'
+import actions from '../actions/episodes'
 import NavBar from './NavBar'
+import { connect } from 'react-redux'
+import episodes from '../selectors/episodesSelector'
+import { useEffect, useState } from 'react'
 
-function Episodes() {
-    const [episodes, updateEpisodes] = useState(null)
-    const [allPages, updateAllPages] = useState()
-    const [page, updatePage] = useState(1)
-    const [keyEpisode, updateKey] = useState()
+function Episodes({ getEpisodes, episodes }) {
+    const [page, setPage] = useState(1)
     useEffect(() => {
-        setTimeout(() => {
-            getAllEpisodes(updateEpisodes)
-            getAllPagesEpisodes(updateAllPages, updateKey)
-        }, 1000)
+        getEpisodes(page)
     }, [])
     return (
         <div>
@@ -42,7 +38,7 @@ function Episodes() {
                         </thead>
                         <tbody>
                             {
-                                episodes === null ? <></> : episodes.map((e, index) => {
+                                episodes?.results === null ? <></> : episodes?.results?.map((e, index) => {
                                     return (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-xs">
                                             <th scope="row" className="sm:py-4 sm:px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -63,20 +59,26 @@ function Episodes() {
                     <div className="flex justify-between  content-center place-items-center dark:bg-gray-800 text-white ">
                         <div>
                             <h2 className="p-5">
-                                Showing {page} to {allPages}
+                                Showing {page} to {episodes?.info?.pages}
                             </h2>
                         </div>
                         <div className="transition-all  ">
                             <button className="border-2 border-indigo-500/100 rounded-md p-2 m-5 border-double hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
-                                getAllEpisodes(updateEpisodes, page, updatePage, false)
-                                const element = document.getElementById('table')
-                                element?.scrollIntoView()
-                            }}>Previous</button>
-                            <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
-                                if (page < allPages) {
+                                if (page > 1) {
                                     const element = document.getElementById('table')
                                     element?.scrollIntoView()
-                                    getAllEpisodes(updateEpisodes, page, updatePage, true)
+                                    setPage(page - 1)
+                                    getEpisodes(page)
+                                }
+
+                            }}>Previous</button>
+                            <button className="border-2 border-indigo-500/100  rounded-md p-2 m-5 hover:bg-indigo-400 duration-300 w-32 md:w-60" onClick={() => {
+
+                                if (page < episodes?.info?.pages) {
+                                    setPage(page + 1)
+                                    getEpisodes(page)
+                                    const element = document.getElementById('table')
+                                    element?.scrollIntoView()
                                 }
                             }}>Next</button>
                         </div>
@@ -87,4 +89,17 @@ function Episodes() {
     )
 }
 
-export default Episodes
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getEpisodes: (page) => dispatch(actions.getEpisodes(page)),
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        episodes: episodes(state)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Episodes)

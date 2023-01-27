@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import getAllCharacter, { getAllPages } from '../functions/functions'
 import NavBar from './NavBar'
+import actions from '../actions/characters'
+import { connect } from 'react-redux'
+import charactersSelector from '../selectors/charactersSelector'
 
-function Home() {
+function Home({ getCharacters, characters }) {
     const [page, updatePage] = useState(1)
-    const [characters, updateCharacters] = useState(null)
-    const [allPages, updateAllPages] = useState(1)
     useEffect(() => {
-        getAllPages(updateAllPages)
-        setTimeout(() => { getAllCharacter(updateCharacters) }, 1000)
-    }, [])
-
+        getCharacters(page)
+    }, [page])
     return (
         <div className='bg-gray-900' id="container">
             <NavBar></NavBar>
             <div className={`${characters === null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all'}`}>
-                {characters == null ? '' : characters.map((e) => {
+                {characters == null ? '' : characters?.results?.map((e) => {
                     return (
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
@@ -36,20 +34,26 @@ function Home() {
             </div> : <div className="flex justify-between  content-center place-items-center text-white">
                 <div>
                     <h2 className="p-5">
-                        Showing {page} to {allPages}
+                        Showing {page} to {characters?.info?.pages}
                     </h2>
                 </div>
                 <div className="transition-all text-white">
                     <button className="border-2 border-green-500/100  rounded-md p-2 m-5 border-double hover:bg-green-600 duration-300 w-32 md:w-60 " onClick={() => {
-                        getAllCharacter(updateCharacters, page, updatePage, false)                        
-                        const element = document.getElementById('container')
-                        element?.scrollIntoView()
+                        if (page > 1) {
+                            updatePage(page - 1)
+                            setTimeout(() => {
+                                const element = document.getElementById('navbar')
+                                element?.scrollIntoView()
+                            }, 300)
+                        }
                     }}>Previous</button>
                     <button className="border-2 border-green-500/100  rounded-md p-2 m-5 hover:bg-green-600 duration-300 w-32 md:w-60" onClick={() => {
-                        if (page !== allPages) {
-                            getAllCharacter(updateCharacters, page, updatePage, true)                            
-                            const element = document.getElementById('container')
-                            element?.scrollIntoView()
+                        if (page < characters?.info?.pages) {
+                            updatePage(page + 1)
+                            setTimeout(() => {
+                                const element = document.getElementById('navbar')
+                                element?.scrollIntoView()
+                            }, 300)
                         }
                     }}>Next</button>
                 </div>
@@ -59,4 +63,15 @@ function Home() {
     )
 }
 
-export default Home
+const mapDispatchToProps = dispatch => {
+    return {
+        getCharacters: (page) => dispatch(actions.getCharacters(page)),
+    }
+}
+const mapStateToProps = state => {
+    return {
+        characters: charactersSelector(state)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

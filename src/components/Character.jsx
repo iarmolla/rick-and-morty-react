@@ -1,17 +1,56 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getCharacterById } from '../functions/functions'
-import { withRouter } from 'react-dom/client';
 import NavBar from './NavBar'
+import actions from '../actions/characters'
+import { connect } from 'react-redux'
+import character from '../selectors/characterSelector'
+import characters from '../selectors/charactersSelector'
 
-function Character() {
+
+function Character({ characters, single, getCharacter }) {
     const params = useParams()
-    const [character, updateCharacter] = useState()
+    const [character, setCharacter] = useState()
     useEffect(() => {
         const element = document.getElementById('navbar')
         element?.scrollIntoView()
-        getCharacterById(params.id, updateCharacter)
+        console.log(single)
+        if (characters?.results) {
+            setCharacter(characters?.results?.filter((character) => character.id == params.id))
+        }
+        else {
+            getCharacter(params.id)
+        }
     }, [])
+    if (!characters?.results) {
+        return (
+            <>
+                <NavBar></NavBar>
+                <div className="bg-slate-900 grid place-items-center min-h-screen">
+                <div className=" my-5  text-white rounded-lg  prose  lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
+                        <>
+                            <div>
+                                <img src={single?.image} className="px-10" alt={single?.name} />
+                            </div>
+                            <div className="grid grid-cols-1">
+                                <h1 className="text-green-300  md:m-0 md:mr-3 md:mb-1 m-3 md:text-left lg:mb-0 lg:mt-0 lg:pb-5 text-center ">{single?.name}</h1>
+                                <div className="grid grid-cols-1 text-left place-items-start gap-1 ml-1">
+                                    <span className="text-stone-400 text-base ">Status:</span>
+                                    <span className="text-green-300">{single?.status}</span>
+                                    <span className="text-stone-400 text-base">Location:</span>
+                                    <span className="text-green-300">{single?.location?.name}</span>
+                                    <span className="text-stone-400 text-base">Specie:</span>
+                                    <span className="text-green-300">{single?.species}</span>
+                                </div>
+                            </div>
+                            <div className='pb-6 mt-5'>
+                                <Link className="bg-green-500 rounded-md mb-4 p-2 no-underline text-slate-900" to={`/`}>BACK</Link>
+                            </div>
+                        </>
+                </div>
+            </div>
+            </>
+        )
+    }
     if (!character) {
         return (
             <>
@@ -34,23 +73,24 @@ function Character() {
                     {character === null ? '' :
                         <>
                             <div>
-                                <img src={character.image} className="px-10" alt={character.name} />
+                                <img src={character[0]?.image} className="px-10" alt={character[0]?.name} />
                             </div>
                             <div className="grid grid-cols-1">
-                                <h1 className="text-green-300  md:m-0 md:mr-3 md:mb-1 m-3 md:text-left lg:mb-0 lg:mt-0 lg:pb-5 text-center ">{character.name}</h1>
+                                <h1 className="text-green-300  md:m-0 md:mr-3 md:mb-1 m-3 md:text-left lg:mb-0 lg:mt-0 lg:pb-5 text-center ">{character[0]?.name}</h1>
                                 <div className="grid grid-cols-1 text-left place-items-start gap-1 ml-1">
                                     <span className="text-stone-400 text-base ">Status:</span>
-                                    <span className="text-green-300">{character.status}</span>
+                                    <span className="text-green-300">{character[0]?.status}</span>
                                     <span className="text-stone-400 text-base">Location:</span>
-                                    <span className="text-green-300">{character.location.name}</span>
+                                    <span className="text-green-300">{character[0]?.location?.name}</span>
                                     <span className="text-stone-400 text-base">Specie:</span>
-                                    <span className="text-green-300">{character.species}</span>
+                                    <span className="text-green-300">{character[0]?.species}</span>
                                 </div>
                             </div>
-                            <div className='pb-6 mt-5'>                               
+                            <div className='pb-6 mt-5'>
                                 <Link className="bg-green-500 rounded-md mb-4 p-2 no-underline text-slate-900" to={`/`}>BACK</Link>
                             </div>
                         </>}
+
                 </div>
             </div>
         </>
@@ -58,4 +98,17 @@ function Character() {
     )
 }
 
-export default Character
+const mapDispatchToProps = dispatch => {
+    return {
+        getCharacter: (id) => dispatch(actions.getCharacter(id)),
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        characters: characters(state),
+        single: character(state)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Character)
