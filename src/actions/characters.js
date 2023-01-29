@@ -45,6 +45,27 @@ function orderByGender() {
   };
 }
 
+function searchByName(query) {
+  return {
+    type: "SEARCH_BY_NAME",
+    query
+  }
+}
+
+function searchByNameSuccess(character) {
+  return {
+    type: "SEARCH_SUCCESS",
+    character
+  }
+}
+
+function searchByNameFailed(error) {
+  return {
+    type: "SEARCH_FAILED",
+    error
+  }
+}
+
 export default {
   getCharacters,
   getCharactersSuccess,
@@ -52,5 +73,8 @@ export default {
   getCharacterSuccess,
   updatePage,
   orderCharacterByName,
-  orderByGender
+  orderByGender,
+  searchByName,
+  searchByNameSuccess,
+  searchByNameFailed
 }

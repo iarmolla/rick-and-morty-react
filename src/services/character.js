@@ -7,4 +7,6 @@ const getCharacterById = async (id) => {
   })
 };
 
+
+
 export default getCharacterById

@@ -6,10 +6,22 @@ export default function products(state = initialState, action) {
         ...state,
         ...action.characters,
       };
-    case "UPDATE_CHARACTERS":
-      state?.results.sort(sortArray);
+    case "UPDATE_CHARACTERS":     
+     state.results = state?.results.sort(sortArray);
+     return {
+      ...state
+     }
     case "ORDER_BY_GENDER":
       state?.results.sort(sortByGender);
+      return {
+        ...state
+       }
+    case "SEARCH_SUCCESS":
+      return {
+        ...action.character,
+      };
+    case "SEARCH_FAILED":
+      return (action.error)
     default:
       return state;
   }
