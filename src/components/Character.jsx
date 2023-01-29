@@ -25,9 +25,9 @@ function Character({ characters, single, getCharacter }) {
     if (!characters?.results) {
         return (
             <>
-                <NavBar></NavBar>
+                <NavBar></NavBar>                
                 <div className="bg-slate-900 grid place-items-center min-h-screen">
-                <div className=" my-5  text-white rounded-lg  prose  lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">
+                <div className=" my-5  text-white rounded-lg  prose  lg:prose-xl grid grid-cols-1 md:grid md:grid-cols-2 place-items-center ">                
                         <>
                             <div>
                                 <img src={single?.image} className="px-10" alt={single?.name} />

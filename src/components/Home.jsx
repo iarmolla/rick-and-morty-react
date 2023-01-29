@@ -6,11 +6,14 @@ import { connect } from 'react-redux'
 import charactersSelector from '../selectors/charactersSelector'
 import pageSelector from '../selectors/pageSelector'
 
-function Home({ getCharacters, characters, pages, updatePages }) {
+function Home({ getCharacters, characters, pages, updatePages, orderByName, orderByGender }) {
     const [page, updatePage] = useState(1)
+    const [dropdown, setDropDown] = useState(false)
+    const [state, updateState] = useState(false)
     useEffect(() => {
         getCharacters(pages.pages)
     }, [page])
+    useEffect(() => { }, [state])
     const navigate = useNavigate()
     if (!characters?.results) {
         return (
@@ -31,12 +34,34 @@ function Home({ getCharacters, characters, pages, updatePages }) {
     return (
         <div className='bg-gray-900' id="container">
             <NavBar></NavBar>
-            <div className={`${characters === null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all'}`}>
+            <div className={`${characters === null ? 'hidden' : 'md:grid grid-cols-3 gap-4 place-items-center m-10 transition-all relative'}`}>
+                <div className="absolute -top-6  -left-10">
+                    <button id="dropdownDefaultButton" onClick={() => {
+                        setDropDown(!dropdown)
+                    }} data-dropdown-toggle="dropdown" class="text-white ml-3 focus:outline-none font-medium rounded-lg text-sm px-2 py-2 text-center inline-flex items-center" type="button">Order by<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                    <div id="dropdown" class={`z-50 rounded-lg ${!dropdown ? 'hidden' : ''}`}>
+                        <ul class="text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <span class="block px-4 py-2" onClick={() => {
+                                    orderByName()
+                                    updateState(!state)
+                                }}>Name</span>
+                            </li>                            
+                            <li>
+                                <span class="block px-4 py-2" onClick={() => {
+                                    orderByGender()
+                                    updateState(!state)
+                                }}>Gender</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 {characters?.results == null ? '' : characters?.results?.map((e) => {
                     return (
                         <div key={e.id} className='p-3 rounded-md m-5 md:m-3 '>
                             <div className="container__character grid grid-cols-1 place-items-center ">
-                                <img src={e.image} className="duration-100 sm:px-24 md:p-0 transition-all hover:transition-all hover:animate-pulse cursor-pointer" onClick={()=> {
+                                <p className='text-white py-2 font-semibold'>{e.name}</p>
+                                <img src={e.image} className="duration-100 sm:px-24 md:p-0 transition-all hover:transition-all hover:animate-pulse cursor-pointer" onClick={() => {
                                     navigate(`page/${page}/character/${e.id}`)
                                 }} alt={e.name} />
                                 <Link to={`page/${page}/character/${e.id}`} className=' text-white transition-all hover:bg-green-600/100 rounded-md cursor-pointer m-3 p-2 hover:animate-pulse hover:transition-all '>More</Link>
@@ -69,7 +94,7 @@ function Home({ getCharacters, characters, pages, updatePages }) {
                         }
                     }}>Previous</button>
                     <button className="border-2 border-green-500/100  rounded-md p-2 m-5 hover:bg-green-600 duration-300 w-32 md:w-60" onClick={() => {
-                        if (pages?.pages< characters?.info?.pages) {
+                        if (pages?.pages < characters?.info?.pages) {
                             updatePage(page + 1)
                             updatePages(pages.pages + 1)
                             setTimeout(() => {
@@ -88,7 +113,10 @@ function Home({ getCharacters, characters, pages, updatePages }) {
 const mapDispatchToProps = dispatch => {
     return {
         getCharacters: (page) => dispatch(actions.getCharacters(page)),
-        updatePages: (page) => dispatch(actions.updatePage(page))
+        updatePages: (page) => dispatch(actions.updatePage(page)),
+        orderByName: () => dispatch(actions.orderCharacterByName()),
+        orderByGender: () => dispatch(actions.orderByGender())
+
     }
 }
 const mapStateToProps = state => {
