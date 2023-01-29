@@ -9,7 +9,7 @@ function NavBar() {
         <div className='flex justify-center items-center'>
           <Link className="text-white pr-5 animate-pulse" to={'/episodes'}>Episodes</Link>
         </div>
-      </div>
+      </div>      
     </header>
   )
 }
