@@ -12,6 +12,7 @@ function App() {
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="page/:page/character/:id" element={<Character></Character>}></Route>
           <Route path="/episodes" element={<Episodes></Episodes>}></Route>
+          <Route path="*" element={<Home></Home>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
