@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import NavBar from './NavBar'
+import NavBar from '../components/NavBar'
 import actions from '../actions/characters'
 import { connect } from 'react-redux'
 import character from '../selectors/characterSelector'

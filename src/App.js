@@ -1,8 +1,8 @@
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Character from './components/Character'
-import Home from './components/Home'
-import Episodes from './components/Episodes'
+import Home from "./views/Home"
+import Episodes from "./views/Episodes"
+import Character from "./views/Character"
 
 function App() {
   return (

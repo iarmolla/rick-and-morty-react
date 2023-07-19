@@ -1,5 +1,5 @@
 import actions from '../actions/episodes'
-import NavBar from './NavBar'
+import NavBar from '../components/NavBar'
 import { connect } from 'react-redux'
 import episodes from '../selectors/episodesSelector'
 import { useEffect, useState } from 'react'
